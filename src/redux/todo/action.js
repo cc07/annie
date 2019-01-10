@@ -27,9 +27,7 @@ const fetchTodoList = (dispatch) => async () => {
   if (result.status == 200) {
     const items = result.data;
 
-    setTimeout(() => {
-      dispatch(fetchTodoListSuccess(items));
-    }, 700);
+    dispatch(fetchTodoListSuccess(items));
 
   } else {
     dispatch(fetchTodoListError('Fetch todo list failed'))
