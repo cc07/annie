@@ -3,34 +3,26 @@ import {
   StyleSheet,
   Text,
   Animated,
-  LayoutAnimation,
-  Platform,
-  UIManager,
 } from 'react-native';
 
 export default class extends React.Component {
   state = {
-    animation: new Animated.Value(400),
+    animation: new Animated.Value(20),
   }
 
   constructor(props) {
     super(props);
-
-    if (Platform.OS === 'android') {
-      UIManager.setLayoutAnimationEnabledExperimental(true)
-    }
   }
 
   componentDidMount() {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
-
     const { animation } = this.state;
 
     Animated.timing(
       animation,
       {
-        toValue: 20,
+        toValue: 1,
         duration: 700,
+        useNativeDriver: true,
       }
     ).start();
   }
@@ -38,7 +30,7 @@ export default class extends React.Component {
   render() {
     const { animation } = this.state;
     return (
-      <Animated.View style={[styles.container, { paddingTop: animation, paddingRight: animation }]}>
+      <Animated.View style={[styles.container, { transform: [{ scale: animation }] }]}>
         <Text style={styles.text}>
           M
         </Text>
@@ -54,6 +46,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 10,
+    paddingTop: 20,
+    paddingRight: 20,
     position: 'absolute',
     bottom: 0,
     left: 0,
