@@ -17,6 +17,10 @@ class TodoListContainer extends React.Component {
     this.props.fetchTodoList();
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return !!nextProps.todos.length;
+  }
+
   render() {
     const { todos } = this.props;
     return !!todos.length
